@@ -10,6 +10,7 @@ public class ClientEx {
 		BufferedWriter out = null;
 		Socket socket = null;
 		Scanner scanner = new Scanner(System.in); // 키보드에서 읽을 scanner 객체 생성
+		// Scanner scanner = new Scanner(System.in, "CP949"); CP949로 인코딩 지정		
 		try {
 			socket = new Socket("localhost", 9999); // 클라이언트 소켓 생성. 서버와 바로 연결
 			in = new BufferedReader(new InputStreamReader(socket.getInputStream())); // 소켓 입력 스트림
