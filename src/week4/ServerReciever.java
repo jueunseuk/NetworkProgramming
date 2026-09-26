@@ -40,7 +40,6 @@ class ServerReciever extends Thread {
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
-        
         System.out.println("ServerReceiver 종료");
     }
 }

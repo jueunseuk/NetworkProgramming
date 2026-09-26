@@ -1,53 +1,48 @@
-package week4;
+package week3;
 
-import java.io.BufferedWriter;
-import java.io.IOException;
-import java.io.OutputStreamWriter;
-import java.net.Socket;
+import java.io.*;
+import java.net.*;
+import java.util.*;
 import java.nio.charset.Charset;
-import java.util.Scanner;
 
-public class ClientEx {
+public class EchoClient {
     public static void main(String[] args) {
+    		BufferedReader in = null;
         BufferedWriter out = null;
         Socket socket = null;
+        Charset socketCharset = Charset.forName("UTF-8");
         Scanner scanner = new Scanner(System.in, Charset.forName("MS949"));
         try {
             socket = new Socket("localhost", 9999);
-            
-            ClientReciever cr = new ClientReciever(socket);
-            cr.start();
-            
+            in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             out = new BufferedWriter(
                 new OutputStreamWriter(
                     socket.getOutputStream(),
-                    Charset.forName("MS949")
+                    socketCharset
                 )
             );
             while (true) {
-            	String outputMessage = scanner.nextLine();
+                System.out.print("텍스트 입력 >> ");
+                String outputMessage = scanner.nextLine();
                 out.write(outputMessage);
                 out.newLine();
                 out.flush();
-                if (outputMessage.equalsIgnoreCase("bye")) {
+                String inputMessage = in.readLine();
+                if (outputMessage.equalsIgnoreCase("bye") || outputMessage.equals("끝")) {
                     break;
                 }
+                System.out.println("Echo from Server -> "+inputMessage);
             }
         } catch (IOException e) {
             System.out.println(e.getMessage());
         } finally {
-            scanner.close();
             try {
+	            	scanner.close();
                 if (socket != null)
                     socket.close();
             } catch (IOException e) {
                 System.out.println("서버와 채팅 중 오류가 발생했습니다.");
             }
         }
-<<<<<<< HEAD
-        
-        System.out.println("ClientEx 종료");
-=======
->>>>>>> 564d7160c61bef6e203d01c798b199f1ff0278a4
     }
 }

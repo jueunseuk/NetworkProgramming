@@ -38,7 +38,10 @@ class ClientReciever extends Thread {
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
+<<<<<<< HEAD
         
         System.out.println("ClientReceiver 종료");
+=======
+>>>>>>> 564d7160c61bef6e203d01c798b199f1ff0278a4
     }
 }
